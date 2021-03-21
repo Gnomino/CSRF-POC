@@ -21,11 +21,21 @@ if(!isset($user)) { // If the user is not logged in, redirect them to the welcom
             echo 'Nothing has been posted yet.';
         } else {
             foreach($posts as $post) {
+                echo '<div id="post' . $post->id . '">';
                 echo 'By ' . htmlspecialchars($post->user->username) . ' on ' . $post->creation_time . '<br>';
                 echo '<blockquote>' . nl2br(htmlspecialchars($post->contents)) . '</blockquote>';
-                echo '<hr>';
+                echo '</div><hr>';
             }
         }
     ?>
+    <h3>Write a post</h3>
+    <form action="post.php" method="post">
+        <label for="post">
+            Text
+        </label>
+        <textarea id="post" name="post" required></textarea>
+        <br>
+        <button type="submit">Post !</button>
+    </form>
 </body>
 </html>
