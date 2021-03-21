@@ -1,5 +1,4 @@
-bplist00Ñ_WebMainResourceÕ	
-_WebResourceFrameName_WebResourceData_WebResourceMIMEType_WebResourceTextEncodingName^WebResourceURLPOr<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">&lt;?php
+<?php
 
    /**
     *
@@ -78,7 +77,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return void
          */
         public function set_class_name($class_name) {
-            $this-&gt;_class_name = $class_name;
+            $this->_class_name = $class_name;
         }
 
         /**
@@ -96,8 +95,8 @@ bplist00Ñ_WebMainResourceÕ
             $args = func_get_args();
             $filter_function = array_shift($args);
             array_unshift($args, $this);
-            if (method_exists($this-&gt;_class_name, $filter_function)) {
-                return call_user_func_array(array($this-&gt;_class_name, $filter_function), $args);
+            if (method_exists($this->_class_name, $filter_function)) {
+                return call_user_func_array(array($this->_class_name, $filter_function), $args);
             }
         }
 
@@ -129,8 +128,8 @@ bplist00Ñ_WebMainResourceÕ
             if ($orm === false) {
                 return false;
             }
-            $model = new $this-&gt;_class_name();
-            $model-&gt;set_orm($orm);
+            $model = new $this->_class_name();
+            $model->set_orm($orm);
             return $model;
         }
 
@@ -143,7 +142,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return Model
          */
         public function find_one($id=null) {
-            return $this-&gt;_create_model_instance(parent::find_one($id));
+            return $this->_create_model_instance(parent::find_one($id));
         }
 
         /**
@@ -155,8 +154,8 @@ bplist00Ñ_WebMainResourceÕ
          */
         public function find_many() {
             $results = parent::find_many();
-            foreach($results as $key =&gt; $result) {
-                $results[$key] = $this-&gt;_create_model_instance($result);
+            foreach($results as $key => $result) {
+                $results[$key] = $this->_create_model_instance($result);
             }
             return $results;
         }
@@ -169,7 +168,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return ORMWrapper|bool
          */
         public function create($data=null) {
-            return $this-&gt;_create_model_instance(parent::create($data));
+            return $this->_create_model_instance(parent::create($data));
         }
     }
 
@@ -311,7 +310,7 @@ bplist00Ñ_WebMainResourceÕ
          */
         protected static function _class_name_to_table_name($class_name) {
             return strtolower(preg_replace(
-                array('/\\\\/', '/(?&lt;=[a-z])([A-Z])/', '/__/'),
+                array('/\\\\/', '/(?<=[a-z])([A-Z])/', '/__/'),
                 array('_', '_$1', '_'),
                 ltrim($class_name, '\\')
             ));
@@ -370,8 +369,8 @@ bplist00Ñ_WebMainResourceÕ
                );
             }
             $wrapper = ORMWrapper::for_table($table_name, $connection_name);
-            $wrapper-&gt;set_class_name($class_name);
-            $wrapper-&gt;use_id_column(self::_get_id_column_name($class_name));
+            $wrapper->set_class_name($class_name);
+            $wrapper->use_id_column(self::_get_id_column_name($class_name));
             return $wrapper;
         }
 
@@ -397,15 +396,15 @@ bplist00Ñ_WebMainResourceÕ
             
             if(is_null($foreign_key_name_in_current_models_table)) {
                 //Match foreign_table.{$foreign_key_name} with the value of 
-                //{$this-&gt;_table}.{$this-&gt;id()}
-                $where_value = $this-&gt;id(); 
+                //{$this->_table}.{$this->id()}
+                $where_value = $this->id(); 
             } else {
                 //Match foreign_table.{$foreign_key_name} with the value of 
-                //{$this-&gt;_table}.{$foreign_key_name_in_current_models_table}
-                $where_value = $this-&gt;$foreign_key_name_in_current_models_table;
+                //{$this->_table}.{$foreign_key_name_in_current_models_table}
+                $where_value = $this->$foreign_key_name_in_current_models_table;
             }
             
-            return self::factory($associated_class_name, $connection_name)-&gt;where($foreign_key_name, $where_value);
+            return self::factory($associated_class_name, $connection_name)->where($foreign_key_name, $where_value);
         }
 
         /**
@@ -419,7 +418,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return ORMWrapper
          */
         protected function has_one($associated_class_name, $foreign_key_name=null, $foreign_key_name_in_current_models_table=null, $connection_name=null) {
-            return $this-&gt;_has_one_or_many($associated_class_name, $foreign_key_name, $foreign_key_name_in_current_models_table, $connection_name);
+            return $this->_has_one_or_many($associated_class_name, $foreign_key_name, $foreign_key_name_in_current_models_table, $connection_name);
         }
 
         /**
@@ -433,7 +432,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return ORMWrapper
          */
         protected function has_many($associated_class_name, $foreign_key_name=null, $foreign_key_name_in_current_models_table=null, $connection_name=null) {
-            return $this-&gt;_has_one_or_many($associated_class_name, $foreign_key_name, $foreign_key_name_in_current_models_table, $connection_name);
+            return $this->_has_one_or_many($associated_class_name, $foreign_key_name, $foreign_key_name_in_current_models_table, $connection_name);
         }
 
         /**
@@ -449,7 +448,7 @@ bplist00Ñ_WebMainResourceÕ
         protected function belongs_to($associated_class_name, $foreign_key_name=null, $foreign_key_name_in_associated_models_table=null, $connection_name=null) {
             $associated_table_name = self::_get_table_name(self::$auto_prefix_models . $associated_class_name);
             $foreign_key_name = self::_build_foreign_key_name($foreign_key_name, $associated_table_name);
-            $associated_object_id = $this-&gt;$foreign_key_name;
+            $associated_object_id = $this->$foreign_key_name;
             
             $desired_record = null;
             
@@ -457,10 +456,10 @@ bplist00Ñ_WebMainResourceÕ
                 //"{$associated_table_name}.primary_key = {$associated_object_id}"
                 //NOTE: primary_key is a placeholder for the actual primary key column's name
                 //in $associated_table_name
-                $desired_record = self::factory($associated_class_name, $connection_name)-&gt;where_id_is($associated_object_id);
+                $desired_record = self::factory($associated_class_name, $connection_name)->where_id_is($associated_object_id);
             } else {
                 //"{$associated_table_name}.{$foreign_key_name_in_associated_models_table} = {$associated_object_id}"
-                $desired_record = self::factory($associated_class_name, $connection_name)-&gt;where($foreign_key_name_in_associated_models_table, $associated_object_id);
+                $desired_record = self::factory($associated_class_name, $connection_name)->where($foreign_key_name_in_associated_models_table, $associated_object_id);
             }
             
             return $desired_record;
@@ -524,13 +523,13 @@ bplist00Ñ_WebMainResourceÕ
                 "   SELECT {$associated_table_name}.*
                       FROM {$associated_table_name} JOIN {$join_table_name}
                         ON {$associated_table_name}.{$associated_table_id_column} = {$join_table_name}.{$key_to_associated_table}
-                     WHERE {$join_table_name}.{$key_to_base_table} = {$this-&gt;$base_table_id_column} ;"
+                     WHERE {$join_table_name}.{$key_to_base_table} = {$this->$base_table_id_column} ;"
             */
 
             return self::factory($associated_class_name, $connection_name)
-                -&gt;select("{$associated_table_name}.*")
-                -&gt;join($join_table_name, array("{$associated_table_name}.{$associated_table_id_column}", '=', "{$join_table_name}.{$key_to_associated_table}"))
-                -&gt;where("{$join_table_name}.{$key_to_base_table}", $this-&gt;$base_table_id_column); ;
+                ->select("{$associated_table_name}.*")
+                ->join($join_table_name, array("{$associated_table_name}.{$associated_table_id_column}", '=', "{$join_table_name}.{$key_to_associated_table}"))
+                ->where("{$join_table_name}.{$key_to_base_table}", $this->$base_table_id_column); ;
         }
 
         /**
@@ -540,81 +539,81 @@ bplist00Ñ_WebMainResourceÕ
          * @return void
          */
         public function set_orm($orm) {
-            $this-&gt;orm = $orm;
+            $this->orm = $orm;
         }
 
         /**
-         * Magic getter method, allows $model-&gt;property access to data.
+         * Magic getter method, allows $model->property access to data.
          *
          * @param  string $property
          * @return null|string
          */
         public function __get($property) {
-            return $this-&gt;orm-&gt;get($property);
+            return $this->orm->get($property);
         }
 
         /**
-         * Magic setter method, allows $model-&gt;property = 'value' access to data.
+         * Magic setter method, allows $model->property = 'value' access to data.
          *
          * @param  string $property
          * @param  string $value
          * @return void
          */
         public function __set($property, $value) {
-            $this-&gt;orm-&gt;set($property, $value);
+            $this->orm->set($property, $value);
         }
 
         /**
-         * Magic unset method, allows unset($model-&gt;property)
+         * Magic unset method, allows unset($model->property)
          *
          * @param  string $property
          * @return void
          */
         public function __unset($property) {
-            $this-&gt;orm-&gt;__unset($property);
+            $this->orm->__unset($property);
         }
 
         /**
-         * Magic isset method, allows isset($model-&gt;property) to work correctly.
+         * Magic isset method, allows isset($model->property) to work correctly.
          *
          * @param  string $property
          * @return bool
          */
         public function __isset($property) {
-            return $this-&gt;orm-&gt;__isset($property);
+            return $this->orm->__isset($property);
         }
 
         /**
-         * Getter method, allows $model-&gt;get('property') access to data
+         * Getter method, allows $model->get('property') access to data
          *
          * @param  string $property
          * @return string
          */
         public function get($property) {
-            return $this-&gt;orm-&gt;get($property);
+            return $this->orm->get($property);
         }
 
         /**
-         * Setter method, allows $model-&gt;set('property', 'value') access to data.
+         * Setter method, allows $model->set('property', 'value') access to data.
          *
          * @param  string|array $property
          * @param  string|null  $value
          * @return Model
          */
         public function set($property, $value = null) {
-            $this-&gt;orm-&gt;set($property, $value);
+            $this->orm->set($property, $value);
             return $this;
         }
 
         /**
-         * Setter method, allows $model-&gt;set_expr('property', 'value') access to data.
+         * Setter method, allows $model->set_expr('property', 'value') access to data.
          *
          * @param  string|array $property
          * @param  string|null  $value
          * @return Model
          */
         public function set_expr($property, $value = null) {
-            $this-&gt;orm-&gt;set_expr($property, $value);
+            $this->orm->set_expr($property, $value);
             return $this;
         }
 
@@ -625,7 +624,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return bool
          */
         public function is_dirty($property) {
-            return $this-&gt;orm-&gt;is_dirty($property);
+            return $this->orm->is_dirty($property);
         }
 
         /**
@@ -634,7 +633,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return bool
          */
         public function is_new() {
-            return $this-&gt;orm-&gt;is_new();
+            return $this->orm->is_new();
         }
 
         /**
@@ -644,7 +643,7 @@ bplist00Ñ_WebMainResourceÕ
          */
         public function as_array() {
             $args = func_get_args();
-            return call_user_func_array(array($this-&gt;orm, 'as_array'), $args);
+            return call_user_func_array(array($this->orm, 'as_array'), $args);
         }
 
         /**
@@ -653,7 +652,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return null
          */
         public function save() {
-            return $this-&gt;orm-&gt;save();
+            return $this->orm->save();
         }
 
         /**
@@ -662,7 +661,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return null
          */
         public function delete() {
-            return $this-&gt;orm-&gt;delete();
+            return $this->orm->delete();
         }
 
         /**
@@ -671,7 +670,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return integer
          */
         public function id() {
-            return $this-&gt;orm-&gt;id();
+            return $this->orm->id();
         }
 
         /**
@@ -684,7 +683,7 @@ bplist00Ñ_WebMainResourceÕ
          * @return void
          */
         public function hydrate($data) {
-            $this-&gt;orm-&gt;hydrate($data)-&gt;force_all_dirty();
+            $this->orm->hydrate($data)->force_all_dirty();
         }
 
         /**
@@ -725,4 +724,3 @@ bplist00Ñ_WebMainResourceÕ
     }
 
     class ParisMethodMissingException extends Exception {}
-</pre></body></html>Ztext/plainUUTF-8_>https://raw.githubusercontent.com/j4mie/paris/master/paris.php    ( ? Q g … ” •r«r¶r¼                           rý
