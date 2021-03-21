@@ -17,7 +17,7 @@ if(isset($_POST['post'])) {
     $post = Model::factory('Post')->create();
     $post->user_id = $user->id;
     $post->contents = $_POST['post'];
-    $post->set_expr('creation_time', 'NOW()');
+    $post->set_expr('creation_time', 'date(\'now\')');
     $post->save();
     header('Location: /forum.php#post' . $post->id);
 } else {
