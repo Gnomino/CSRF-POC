@@ -22,7 +22,7 @@ if(!isset($user)) { // If the user is not logged in, redirect them to the welcom
         } else {
             foreach($posts as $post) {
                 echo '<div id="post' . $post->id . '">';
-                echo 'By ' . htmlspecialchars($post->user->username) . ' on ' . $post->creation_time . '<br>';
+                echo 'By ' . htmlspecialchars($post->user()->username) . ' on ' . $post->creation_time . '<br>';
                 echo '<blockquote>' . nl2br(htmlspecialchars($post->contents)) . '</blockquote>';
                 echo '</div><hr>';
             }
