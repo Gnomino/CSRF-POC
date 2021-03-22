@@ -14,8 +14,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $user->username = $_POST['username'];
     $user->password = hash("sha256", $_POST['password']); // For the sake of simplicity, we only use a hashing function here (no unique salt)
     $user->save();
-
-    header('Location /login.php?created=1');
+    header('Location: /login.php?created=1');
     exit();
 }
 
