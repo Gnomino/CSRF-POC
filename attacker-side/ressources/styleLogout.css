@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "Fortnite";
+  src: url("./Burbank\ Big\ Condensed\ Black.ttf");
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+  font-family: "Fortnite";
+  background: url(./backlog.jpeg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+img {
+  margin-top: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#description {
+  top: 70px;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 1px;
+  align-self: stretch;
+  font-size: 4rem;
+}
