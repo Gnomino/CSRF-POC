@@ -1,0 +1,35 @@
+body {
+  background-color: rgb(231, 109, 9);
+  text-align: center;
+}
+#title {
+  font-size: 50px;
+  text-align: center;
+}
+
+#user,
+#username {
+  font-size: 25px;
+  text-align: center;
+  height: 50px;
+  width: 300px;
+}
+
+#pass,
+#password {
+  font-size: 25px;
+  text-align: center;
+  height: 50px;
+  width: 300px;
+}
+
+#pass {
+  margin-top: 100px;
+}
+
+#box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
