@@ -16,7 +16,7 @@ if(!isset($user)) { // If the user is not logged in, redirect them to the welcom
 <body>
     <div id="head">
         <h1 id="title">Forum</h1>
-        <form action="logout.php" method="post" >
+        <form action="logout.php" method="get" >
             <button id="buttonLog" type="submit">Logout !</button>
         </form>
     </div>
